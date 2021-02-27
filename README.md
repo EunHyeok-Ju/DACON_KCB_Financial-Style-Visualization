@@ -113,26 +113,26 @@ R이 아닌 새로운 Tableau라는 강력한 시각화 툴을 공부하게 된 
 │         credit_data.csv
 │         extr_2016.txt
 │         extr_2017.txt
-|         jeju_summ.csv
-|         jeju_with_zipcode.csv
-|         jeju_zipcode_db.txt
-|         mdis_data.csv
-|         num_opencard.csv
-|         sample_data.csv
+│         jeju_summ.csv
+│         jeju_with_zipcode.csv
+│         jeju_zipcode_db.txt
+│         mdis_data.csv
+│         num_opencard.csv
+│         sample_data.csv
 │  └─img
 │         funds.png
-|         hand-shake.png
-|         감귤.png
-|         눈앞캄캄.jpg
-|         알뜰살뜰.jpg
-|         위태위태.jpg
-|         제목.png
-|         흥청망청.jpg
+│         hand-shake.png
+│         감귤.png
+│         눈앞캄캄.jpg
+│         알뜰살뜰.jpg
+│         위태위태.jpg
+│         제목.png
+│         흥청망청.jpg
 │  └─output
 │         01.데이콘 보고서.pdf
-|         2.KCB_금융데이터_시각화_시로앤마로.twbx
-|         3.제주도 시각화.twbx
-|
+│         2.KCB_금융데이터_시각화_시로앤마로.twbx
+│         3.제주도 시각화.twbx
+│
 
 ```
 
