@@ -22,97 +22,83 @@ KCB는 다양한 금융사로부터 여신거래 기록, 채무 정보, 연체�
 * credit_card_data.csv : 전국민 카드 및 대출 이용통계 데이터
 * jeju_financial_life_data.csv : 지역 거주지(제주도) 금융라이프 데이터
 
+### 1.1.3 외부 데이터
+* jeju_zipcode_db.txt : [우편번호 공공사이트](https://www.epost.go.kr/search/zipcode/areacdAddressDown.jsp)에서 우편번호 다운로드
+* extr_2016.txt / extr_2017.txt : [마이크로데이터 통합서비스(MDIS)](http://mdis.kostat.go.kr/)에서 16,17년도의 지역별고용조사 데이터 활용
+
 ### 1.1.2 산출 데이터
 
-* filled.csv : 누락되어있는 선수에 대한 키/몸무게 값 크롤링 데이터
+* mdis_data.csv : 마이크로데이터 통합서비스 외부 데이터 전처리 후 산출물
+* credict_data.csv : credict_card_datd에 대한 전처리 후 산출물
+* sample_data.csv : Tabeau에 활용하기 위해 제작한 샘플 데이터
 
 ## 1.2. 데이터 처리 과정
 
-데이터 전처리 - Feature Engineering - PCA - Clustering - Visualization - Verification
+데이터 수집 - 데이터 전처리 - Feature Engineering - Visualization - Verification
 
 ## 1.3. 주제 선정 배경
 
-[맞으면 홈런인데 타율은 1할...MLB 특급 **공갈포**](https://www.chosun.com/site/data/html_dir/2018/08/11/2018081100125.html)
+자신의 소비성향과 신용상태에 영향을 줄 수 있는 요인에 대해서 판단할 수 있는 기회가 부족하다고 판단
 
-[**똑딱이** 신세 푸념하던 민병헌, 드디어 손맛 보다](http://news.chosun.com/site/data/html_dir/2018/08/11/2018081100125.html)
+저희는 개인들이 자신의 신용점수를 포함하여 여러 항목들을 비교해볼 수 있는 기회를 제공하고 , 
 
-* [공갈포](https://namu.wiki/w/%EA%B3%B5%EA%B0%88%ED%8F%AC) : 파워는 준수하여 순장타율과 홈런갯수는 볼 만한 수준이나 타율 혹은 출루율이 매우 좋지 못해 실질적인 타석 생산력이 가진 파워에 비해 많이 떨어지는 선수
-* [똑딱이](https://namu.wiki/w/%EB%98%91%EB%94%B1%EC%9D%B4) : 야구에서 홈런을 거의 치지 못하고 단타 위주의 타격을 하는 교타자들을 얕잡아 이르는 말
+이에 따른 자신의 금융유형을 파악하여 미래에 대한 계획을 세울 수 있도록 하고자 했습니다.
 
-야구계의 은어로 사용되는 단어를 데이터를 통해 확인할 수 있는지에 주목하였습니다.
 
 # 2. 데이터 분석
 
 ## 2.1. Feature Engineering
-* 순장타율(Isolated Power) : 장타율(SLG) - 타율(avg)
-* 순출루율(IsolatedDiscipline) : 출류율(OBP) - 타율(avg)
-* 선구안(BattingEye) = 볼넷(BB)/(볼넷(BB) + 삼진(SO))
 
-## 2.2. 모델링
+사람들에 대한 새로운 금융유형을 제작하기 위해 다음과 같은 변수 생성
+* 소득대비 카드 사용량 
+* 비은행 대출 비율
 
-선수들의 전성기 때의 모습을 비교하여, 선수 각자의 스타일을 비교하고자 OPS를 기준으로 전성기를 선정하였습니다.
+## 3. 시각화
 
-* 주성분 분석(Principal Component Analysis) : 고차원의 데이터를 저차원의 데이터로 환원시키는 기법
-* K-means : 비지도 학습, 주어진 데이터를 k개의 클러스터로 묶는 알고리즘
+## 3.1. 금융유형
 
-## 2.3. 시각화
+사람들의 금융 소비 유형에 따라 다음과 같이 유형의 이름을 매칭
 
-<img src="https://user-images.githubusercontent.com/64209837/107844613-4b81cb80-6e18-11eb-913c-434d8f6a1c2d.PNG" width="80%" height="80%">
+<img src="https://user-images.githubusercontent.com/64209837/109381489-097b7e00-791e-11eb-9f8f-f85ec0931b6a.jpg" width="50%" height="50%">
+<img src="https://user-images.githubusercontent.com/64209837/109381492-0aacab00-791e-11eb-9bfb-54bc48cc82e3.jpg" width="50%" height="50%">
+<img src="https://user-images.githubusercontent.com/64209837/109381493-0aacab00-791e-11eb-877c-143d3dd39c40.jpg" width="50%" height="50%">
+<img src="https://user-images.githubusercontent.com/64209837/109381494-0b454180-791e-11eb-9a41-9f647f25c43a.jpg" width="50%" height="50%">
 
-3개의 군집으로 매끄럽게 나뉘어져서 이 3개의 군집을 각각 Radar Chart를 통해 군짐명을 지었습니다.
+개인의 소비형태에 따라 금융유형을 제시
 
-### 2.3.1. Contatct Hitter Type
+## 3.2. 전국민 데이터 Tableau
 
-<img src="https://user-images.githubusercontent.com/64209837/107844724-6274ed80-6e19-11eb-92a2-bf4171602890.png" width="30%" height="30%">
+[Tableau](https://en.wikipedia.org/wiki/Tableau_Software)는 시각화 도구로서 동적인 시각화를 표현할 수 있고, 간편하게 활용할 수 있다.
 
+이를 활용하기 위해서 샘플 데이터를 제작하여서 데이터에 따라 개인과 집단과의 비교가 두드러지게 표현함.
 
-선구안이 중요하며, 순장타율에 비해 순출루율의 중요성이 높게 나타나는게 특징입니다.
+![태블로 화면](https://user-images.githubusercontent.com/64209837/109381297-ee5c3e80-791c-11eb-9eca-11f0ec715a34.png)
 
-성적이 좋지 않을 경우 '똑딱이'라고 얕잡아 표현합니다.
+[credit data Tableau Link](https://public.tableau.com/profile/.19960903#!/vizhome/KCB____15626060032900/sheet0)
 
-### 2.3.2. Slugger Type
+## 3.3. Jeju
 
-<img src="https://user-images.githubusercontent.com/64209837/107844725-63a61a80-6e19-11eb-8c8b-fe4777ca0de2.png" width="30%" height="30%">
+전국민 금융 데이터를 활용해서 얻은 인사이트를 활용하여 제주 데이터에 대입
 
-순장타율과 몸무게의 중요성이 높게 나타나는점이 특징입니다.
+제주 데이터는 개인의 데이터가 아닌 지역별 데이터로서, 지역별로 금융 유형을 나누어 표현
 
-성적이 좋지 않을 경우 '공갈포'라고 얕잡아 표현합니다.
+![제주 tableau 화면](https://user-images.githubusercontent.com/64209837/109381807-d20dd100-791f-11eb-8254-3a543f566e5b.png)
 
-### 2.3.3.Multi-Player Type
+[jeju data Tableau Link](https://public.tableau.com/profile/.19960903#!/vizhome/-2030/1)
 
-<img src="https://user-images.githubusercontent.com/64209837/107844726-63a61a80-6e19-11eb-910d-da2399452840.png" width="30%" height="30%">
+## 3. 후기
 
-어느 하나의 변수도 비중이 크게 나타나지 않지만, 모든 능력을 골고루 갖고 있는 점이 특징입니다.
+금융 데이터를 다루어 새로운 금융 유형을 만들었다는 점이 흥미로웠음.
 
-## 2.4. 분석 결과 검증
+R이 아닌 새로운 Tableau라는 강력한 시각화 툴을 공부하게 된 계기가 되었음.
 
-각 군집을 대표하는 실제 인물과 관련 기사를 대조하여 데이터 분석의 결과를 확인하는 과정을 거쳤습니다.
-
-# 3. 결론
-
-```
-1. Significance
-* 선수별 플레이 스타일을 유형화하여 데이터를 바탕으로 선수의 성장 방향성을 파악 가능
-* 타순 배치, 선수 영입, 수비 포메이션 등 다각도로 유형 정보 활용 가능
-
-2. Threshold
-* 전성기를 OPS로만 파악해서 각 선수의 특장점이 드러나는 성적(WAR, 체력 등)을 개인적으로 파악하지 못했다는 한계 존재
-* 2010년 이전의 프로야구 과거 데이터 및 2군 데이터를 추가하여 표본 크기를 늘린다면 더 정교한 군집화가 이뤄질 것이라고 예상
-```
-
-## 3.1. 후기
-
-야구계의 은어로 나타나는 단어를 실제 데이터 분석의 결과와 맞았다는 점이 흥미로웠음.
-
-도메인 지식과 인사이트의 중요성을 깨달을 수 있었고, 마크다운의 상세 적용 방법 등 시각화에 대한 공부의 계기가 되었음.
-
-데이터 분석을 통해 얻어낸 인사이트를 활용하여 팀별 전력 비교 등 다양한 채널을 활용하지 못했던 점이 아쉬웠음.
+각 유형별로 상품을 추천해주거나, 피드백에 대한 부분이 아쉬웠음.
 
 ## 3.2. 결과
 
-![최종 결과](https://user-images.githubusercontent.com/64209837/107845441-c352f480-6e1e-11eb-927a-276bb6c6fdec.PNG)
+![최종 결과](https://user-images.githubusercontent.com/64209837/109381880-45afde00-7920-11eb-89ab-f76fe6042cc5.png)
 
-최종 2등으로 수상
+최종 3등으로 수상
 
 ## 폴더 구조
 
@@ -121,23 +107,32 @@ KCB는 다양한 금융사로부터 여신거래 기록, 채무 정보, 연체�
 ├─Github
 │  │  README.md
 │  ├─code
-│  │      01-Crawling_Code.Rmd : 크롤링 코드
-│  │      02-Dacon 6th Visualization-시로앤마로.Rmd : 전체 코드
+│  │      01.credit_card 전처리.Rmd
+│  │      02.제주도 전처리.Rmd
 │  └─data
-│         Filled.csv : 크롤링 결과
+│         credit_data.csv
+│         extr_2016.txt
+│         extr_2017.txt
+|         jeju_summ.csv
+|         jeju_with_zipcode.csv
+|         jeju_zipcode_db.txt
+|         mdis_data.csv
+|         num_opencard.csv
+|         sample_data.csv
 │  └─img
-│         01_contact.jpg
-│         02_slugger.jpg
-│         03_multi.jpg
-│         cluster.PNG
-│         cluster1.png
-│         cluster2.png
-│         cluster3.png
-│         최종 결과.PNG
-│  └─result
-│         Dacon-6th-Visualization-시로앤마로.html : 최종 결과 html
-│  └─source
-|         readthedown.css : readthedown 패키지 상세 테마 설정 
+│         funds.png
+|         hand-shake.png
+|         감귤.png
+|         눈앞캄캄.jpg
+|         알뜰살뜰.jpg
+|         위태위태.jpg
+|         제목.png
+|         흥청망청.jpg
+│  └─output
+│         01.데이콘 보고서.pdf
+|         2.KCB_금융데이터_시각화_시로앤마로.twbx
+|         3.제주도 시각화.twbx
+|
 
 ```
 
